@@ -7,14 +7,16 @@ class MealsDetailsScreen extends ConsumerWidget {
   const MealsDetailsScreen({
     super.key,
     required this.meal,
-    required this.onToggleFavorite,
+    // required this.onToggleFavorite,
   });
 
   final Meal meal;
-  final void Function(Meal meal)? onToggleFavorite;
+  // final void Function(Meal meal)? onToggleFavorite;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favoritMeals = ref.watch(favoritMealsProvider);
+     final isFavorit= favoritMeals.contains(meal);
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
@@ -30,7 +32,7 @@ class MealsDetailsScreen extends ConsumerWidget {
                       context,
                     ).showSnackBar(SnackBar(content: Text(wasAdded ? "Meal Added as a favorite" : "Meal Removed")));
             },
-            icon: Icon(Icons.star),
+            icon: Icon(isFavorit ?  Icons.star : Icons.star_border ),
           ),
         ],
       ),
